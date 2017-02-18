@@ -6,6 +6,14 @@ using System.Collections;
 using System.Threading.Tasks;
 using System.Numerics;
 
+
+/* Hi! Welcome to my first GitHub upload. I'm a chemical engineering student and
+ * I made this program to make some calculations in the lab easier, this program
+ * use the gradient descent method to obtain the parameters that better adjust 
+ * to the ecuation y=d-(a-d)/(1+c*x^b), using the Least Squares aproach.
+ * Because this app is intended to use in a lab the variables for the data are called "Med" (from mediciones)
+ */
+
 namespace FinalSolution
 {
     class Program
@@ -21,34 +29,6 @@ namespace FinalSolution
         public static double[] Grad(double[] x, double[] par, double[] V)
 
         {
-            /* Derivadas
-             
-            
-            derivada a: 
-
-
-            -2(-(a-d)/((x/c)^b+1)+d-V)/
-                    ((x/c)^b+1)
-
-            
-            derivada b: 
-             
-              2ln(x/c)(a-d)*(x/c)^b(-(a-d)/((x/c)^b+1)+d-V)/
-                            ((x/c)^b+1)^2
-            
-            derivada c: 
-
-                -2bx(a-d) * (x/c)^b-1 (-(a-d)/((x/c)^b+1)+d-V) /
-                        (c^2((x/c)^b+1)^2)
-
-            derivada d: 
-
-            2 (1/((x/c)^b+1)+1) (-(a-d)/((x/c)^b+1)+d-V)
-            
-            */
-
-            
-
             double a = par[0];
             double b = par[1];
             double c = par[2];
@@ -62,24 +42,12 @@ namespace FinalSolution
 
             foreach (double i in x)
             {
-                /*temp = Math.Pow(i / c, b);
-                temp = temp + 1.0;
-                Grad[0] += (2*(((a - d)/(temp)) - d + V[h]))/(temp);
-                Grad[1] = (2*Math.Log(i/c,Math.E)*(a - d) * Math.Pow(i/c,b)*(-((a - d) / (temp)) - d + V[h]) )/Math.Pow(temp,2);
-                Grad[2] += (-2*b*i*(a - d) * Math.Pow(i/c,b-1)* (-((a - d) / (temp)) - d + V[h]) )/(Math.Pow(c,2)*Math.Pow(temp,2));
-                Grad[3] += 2*(1/(temp) + 1)*(-((a - d) / (temp)) - d + V[h]);
-                h += 1;*/
-
                 temp = Math.Pow(i, b);
                 Grad[0] += -2 * (-(a - d) / (c * temp + 1) + d - V[h]) / (c * temp + 1);
                 Grad[1] += 2 * c * (a - d) * Math.Log(i, Math.E) * temp * (-(a - d) / (c * temp + 1) + d - V[h]) / Math.Pow((c * temp + 1), 2);
                 Grad[2] += 2 * (a - d) * temp * (-(a - d) / (c * temp + 1) + d - V[h]) / Math.Pow((c * temp + 1), 2);
                 Grad[3] += 2 * (1 / (c * temp + 1) + 1) * (-(a - d) / (c * temp + 1) + d - V[h]);
                 h += 1;
-
-                
-
-
             }
 
             return Grad;
@@ -189,6 +157,8 @@ namespace FinalSolution
 
         static void Main(string[] args)
         {
+            
+            
             Console.WriteLine("Bienvenido a Calculador de Amilosa v0.01");
             Console.WriteLine("A continuación deberá agregar los valores que se le soliciten, cuando halla agregado el valor que considera suficiente presione enter sin agregar nada.")
             bool h=True;
@@ -196,6 +166,8 @@ namespace FinalSolution
             double[] vectVal={};
             double[] x={};
             int addVal=0;
+            
+            //Here the user adds the values of x and y
             while(h)
             {
                 double[] temp={0};
@@ -224,7 +196,7 @@ namespace FinalSolution
             double gamma = 0.01;
 
 
-            //Iteración para ajustar parámetros  (Estaría bueno hacerlo función después)
+            //Iterations of the gradient descent
             while (h < 5000)
             {
                 
@@ -249,19 +221,10 @@ namespace FinalSolution
                     rest[i] = vectGrad[i] - vectGradini[i];
                 }
                 
-                double mod = Mod(rest);
-                //gamma = Gamma(vectParini, vectPar, vectGradini, vectGrad, mod);
                 est = Sig(x, vectPar);
                 estIni = Sig(x, vectParini);
                 error = CuadErr(vectVal, est);
                 errorIni = CuadErr(vectVal, estIni);
-
-                //if (Math.Abs(error - errorIni) < gamma) { Console.WriteLine("Convergió");break; }
-               
-                //foreach (double i in vectPar) { Console.Write("{0} ", i); }
-                
-                //Console.WriteLine();
-                //Console.WriteLine("Error: {0}", error);
 
                 for (int i = 0; i < vectPar.Length; i++) { vectParini[i] = vectPar[i]; }
                 
