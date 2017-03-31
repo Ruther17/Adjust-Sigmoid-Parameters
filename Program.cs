@@ -21,8 +21,9 @@ namespace FinalSolution
 
         /*Programa ajustador de parámetros para curva sigmoidea.
          * 
-         * Autor: Federico Benelli
+         * Autor: Federico Benelli; DNI: 37.300.407
          * Versión: 0.0.1
+         *
          */
 
         //Calcula derivadas y devuelve gradiente
