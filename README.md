@@ -1,7 +1,7 @@
 # Adjust-Sigmoid-Parameters
 
 Script realizado en C#, el cual recibe mediciones experimentales cargadas ya sea durante la operación o al finalizarla.
-Posteriormente ajusta los valores experimentales a una curva sigmoidea mediante el método del gradiente decresciente y 
+Posteriormente ajusta los valores experimentales a una curva sigmoidea mediante el método del gradiente decresciente, utilizando como función objetivo el mínimo error cuadrado y 
 calcula la intersección entre las rectas correspondientes a:
 
 - El punto de inflexión de la curva.
